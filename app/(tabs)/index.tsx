@@ -1,9 +1,12 @@
 import clipboardApi from '@/api/clipboard.api';
 import ClipboardComponent from '@/components/ClipboardComponent';
+import ConnectionIndicator from '@/components/ConnectionIndicator';
 import { Divider } from '@/components/ui/divider';
+import { HStack } from '@/components/ui/hstack';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
+import useBaseUrl from '@/hooks/useBaseUrl';
 import { FlashList } from '@shopify/flash-list';
 import { useQuery } from '@tanstack/react-query';
 import { Scissors } from 'lucide-react-native';
@@ -18,6 +21,8 @@ export default function HomeScreen() {
 		refetchInterval: 200,
 	});
 
+	const { isConnected } = useBaseUrl();
+
 	if (status === 'success') {
 		if (data && data !== clipboards[0]) {
 			setClipboards((prev) => [data, ...prev]);
@@ -26,10 +31,13 @@ export default function HomeScreen() {
 
 	return (
 		<VStack className="mx-4 my-10 h-full">
-      <Icon as={Scissors} size='xl'/>
-			<Text className='text-4xl'>Welcome to Papan Klip</Text>
-      <Divider className='my-2'/>
-			<FlashList data={clipboards} renderItem={({ item }) => <ClipboardComponent item={item}/>} />
+			<Icon as={Scissors} size="xl" />
+			<Text className="text-4xl">Welcome to Papan Klip</Text>
+			<HStack>
+				<ConnectionIndicator isConnected={isConnected} />
+			</HStack>
+			<Divider className="my-2" />
+			<FlashList estimatedItemSize={50} data={clipboards} renderItem={({ item }) => <ClipboardComponent item={item} />} />
 		</VStack>
 	);
 }
