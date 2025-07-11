@@ -23,7 +23,7 @@ export default function RootLayout() {
 	}
 
 	return (
-		<GluestackUIProvider mode="dark">
+		<GluestackUIProvider mode="light">
 			<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
 				<QueryClientProvider client={queryClient}>
 					<Stack>
