@@ -1,6 +1,5 @@
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import '@/global.css';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -8,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 
 const queryClient = new QueryClient();
 
@@ -28,6 +28,7 @@ export default function RootLayout() {
 				<QueryClientProvider client={queryClient}>
 					<Stack>
 						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+						<Stack.Screen name="qr-scanner" options={{ headerShown: false }} />
 						<Stack.Screen name="+not-found" />
 					</Stack>
 				</QueryClientProvider>
