@@ -1,21 +1,24 @@
+import useImagePreview from '@/hooks/useImagePreview';
+import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import { Aperture, Image } from 'lucide-react-native';
 import { useState } from 'react';
 import {
-  Actionsheet,
-  ActionsheetBackdrop,
-  ActionsheetContent,
-  ActionsheetDragIndicator,
-  ActionsheetDragIndicatorWrapper,
-  ActionsheetIcon,
-  ActionsheetItem,
-  ActionsheetItemText,
+	Actionsheet,
+	ActionsheetBackdrop,
+	ActionsheetContent,
+	ActionsheetDragIndicator,
+	ActionsheetDragIndicatorWrapper,
+	ActionsheetIcon,
+	ActionsheetItem,
+	ActionsheetItemText,
 } from './ui/actionsheet';
 import { Fab, FabIcon } from './ui/fab';
 
 export default function TakePicture() {
 	const [isActionShown, setIsActionShown] = useState(false);
   const router = useRouter();
+	const { setImageUri } = useImagePreview();
 
 	const onClose = () => setIsActionShown(false);
 
@@ -23,6 +26,22 @@ export default function TakePicture() {
     router.navigate('/camera');
     onClose();
   }
+
+	const onPressGallery = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 0.5,
+			allowsMultipleSelection: false
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+			router.navigate('/image-preview');
+    }
+		onClose();
+  };
+
 
 	return (
 		<>
@@ -32,7 +51,7 @@ export default function TakePicture() {
 					<ActionsheetDragIndicatorWrapper>
 						<ActionsheetDragIndicator />
 					</ActionsheetDragIndicatorWrapper>
-					<ActionsheetItem onPress={onClose}>
+					<ActionsheetItem onPress={onPressGallery}>
 						<ActionsheetIcon as={Image} size='xl' />
 						<ActionsheetItemText size='lg'>Gallery</ActionsheetItemText>
 					</ActionsheetItem>
