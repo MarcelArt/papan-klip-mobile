@@ -15,7 +15,7 @@ import { Scissors } from 'lucide-react-native';
 import { useEffect } from 'react';
 
 export default function HomeScreen() {
-	const { clipboards, addClipboard, latestClipboard } = useClipboards();
+	const { clipboards, addClipboard } = useClipboards();
 	const { isConnected, baseUrl } = useBaseUrl();
 
 	const { data, status } = useQuery({
@@ -29,11 +29,14 @@ export default function HomeScreen() {
 	});
 
 	useEffect(() => {
-		if (status === 'success' && data && data !== latestClipboard) {
+		if (status === 'success' && data && !clipboards.some(clipboard => clipboard.content === data)) {
 			mutate(data);
-			addClipboard(data);
+			addClipboard({
+				content: data,
+				format: 'text',
+			});
 		}
-	}, [data, status, latestClipboard, mutate, addClipboard]);
+	}, [data, status, mutate, addClipboard, clipboards]);
 
 	return (
 		<VStack className='mx-4 my-10 h-full'>

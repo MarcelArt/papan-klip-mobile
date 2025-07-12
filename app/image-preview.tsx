@@ -6,6 +6,7 @@ import { Icon } from '@/components/ui/icon';
 import { Image } from '@/components/ui/image';
 import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
 import useBaseUrl from '@/hooks/useBaseUrl';
+import useClipboards from '@/hooks/useClipboards';
 import useImagePreview from '@/hooks/useImagePreview';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
@@ -16,6 +17,7 @@ export default function ImagePreviewScreen() {
   const { baseUrl } = useBaseUrl();
   const router = useRouter();
 	const toast = useToast();
+	const { addClipboard } = useClipboards();
   
   const showToast = (isSuccess: boolean) => {
 		const newId = Math.random();
@@ -51,6 +53,10 @@ export default function ImagePreviewScreen() {
     mutationFn: () => clipboardApi.createPictureClipboard(baseUrl, imageUri),
     onSuccess: () => {
       showToast(true);
+			addClipboard({
+				content: imageUri,
+				format: 'image',
+			});
       setImageUri(''); // Clear the image URI after successful upload
       router.navigate('/'); // Navigate back to the home screen
     },

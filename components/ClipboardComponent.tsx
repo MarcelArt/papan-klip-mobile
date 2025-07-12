@@ -1,13 +1,15 @@
+import { Clipboard } from '@/models/clipboard.model';
 import { truncateString } from '@/utils/strings.util';
 import { Copy } from 'lucide-react-native';
 import { Card } from './ui/card';
 import { HStack } from './ui/hstack';
 import { Icon } from './ui/icon';
+import { Image } from './ui/image';
 import { Pressable } from './ui/pressable';
 import { Text } from './ui/text';
 
 interface ClipboardComponentProps {
-	item: string;
+	item: Clipboard;
 }
 
 export default function ClipboardComponent({ item }: ClipboardComponentProps) {
@@ -16,11 +18,17 @@ export default function ClipboardComponent({ item }: ClipboardComponentProps) {
 	};
 
 	return (
-		<Card variant="elevated" size="md" className='mb-2'>
-			<HStack space="md" className="w-full justify-between">
-				<Text size="md" className='max-w-64'>{truncateString(item, 75)}</Text>
+		<Card variant='elevated' size='md' className='mb-2'>
+			<HStack space='md' className='w-full justify-between'>
+				{item.format === 'image' ? (
+					<Image source={{ uri: item.content }} alt={item.format} className='aspect-video w-64' resizeMode='cover' />
+				) : (
+					<Text size='md' className='max-w-64'>
+						{truncateString(item.content, 75)}
+					</Text>
+				)}
 				<Pressable onPress={onPressCopy}>
-					{({ pressed }) => <Icon className={pressed ? 'opacity-50' : ''} as={Copy} size="xl" />}
+					{({ pressed }) => <Icon className={pressed ? 'opacity-50' : ''} as={Copy} size='xl' />}
 				</Pressable>
 			</HStack>
 		</Card>

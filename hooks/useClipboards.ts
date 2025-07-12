@@ -1,17 +1,18 @@
+import { Clipboard } from "@/models/clipboard.model";
 import { create } from "zustand";
 
 interface ClipboardsState {
-  clipboards: string[];
-  latestClipboard?: string;
-  setClipboards: (clipboards: string[]) => void;
-  addClipboard: (clipboard: string) => void;
+  clipboards: Clipboard[];
+  latestClipboard?: Clipboard;
+  setClipboards: (clipboards: Clipboard[]) => void;
+  addClipboard: (clipboard: Clipboard) => void;
 }
 
 const useClipboards = create<ClipboardsState>((set) => ({
   clipboards: [],
   latestClipboard: undefined,
-  setClipboards: (clipboards: string[]) => set({ clipboards, latestClipboard: clipboards[0] }),
-  addClipboard: (clipboard: string) => set((state) => ({
+  setClipboards: (clipboards: Clipboard[]) => set({ clipboards, latestClipboard: clipboards[0] }),
+  addClipboard: (clipboard: Clipboard) => set((state) => ({
     clipboards: [clipboard, ...state.clipboards],
     latestClipboard: clipboard,
   })),
