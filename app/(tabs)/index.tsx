@@ -8,13 +8,14 @@ import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
 import useBaseUrl from '@/hooks/useBaseUrl';
+import useClipboards from '@/hooks/useClipboards';
 import { FlashList } from '@shopify/flash-list';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Scissors } from 'lucide-react-native';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function HomeScreen() {
-	const [clipboards, setClipboards] = useState<string[]>([]);
+	const { clipboards, addClipboard, latestClipboard } = useClipboards();
 	const { isConnected, baseUrl } = useBaseUrl();
 
 	const { data, status } = useQuery({
@@ -27,12 +28,12 @@ export default function HomeScreen() {
 		mutationFn: (text: string) => clipboardApi.createClipboard(baseUrl, text),
 	});
 
-	if (status === 'success') {
-		if (data && data !== clipboards[0]) {
+	useEffect(() => {
+		if (status === 'success' && data && data !== latestClipboard) {
 			mutate(data);
-			setClipboards((prev) => [data, ...prev]);
+			addClipboard(data);
 		}
-	}
+	}, [data, status, latestClipboard, mutate, addClipboard]);
 
 	return (
 		<VStack className='mx-4 my-10 h-full'>
