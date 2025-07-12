@@ -8,12 +8,13 @@ import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
 import useBaseUrl from '@/hooks/useBaseUrl';
 import { FlashList } from '@shopify/flash-list';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Scissors } from 'lucide-react-native';
 import { useState } from 'react';
 
 export default function HomeScreen() {
 	const [clipboards, setClipboards] = useState<string[]>([]);
+	const { isConnected, baseUrl } = useBaseUrl();
 
 	const { data, status } = useQuery({
 		queryKey: ['clipboards'],
@@ -21,10 +22,13 @@ export default function HomeScreen() {
 		refetchInterval: 200,
 	});
 
-	const { isConnected } = useBaseUrl();
+	const { mutate } = useMutation({
+		mutationFn: (text: string) => clipboardApi.createClipboard(baseUrl, text),
+	});
 
 	if (status === 'success') {
 		if (data && data !== clipboards[0]) {
+			mutate(data);
 			setClipboards((prev) => [data, ...prev]);
 		}
 	}

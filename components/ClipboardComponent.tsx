@@ -1,3 +1,4 @@
+import { truncateString } from '@/utils/strings.util';
 import { Copy } from 'lucide-react-native';
 import { Card } from './ui/card';
 import { HStack } from './ui/hstack';
@@ -17,7 +18,7 @@ export default function ClipboardComponent({ item }: ClipboardComponentProps) {
 	return (
 		<Card variant="elevated" size="md" className='mb-2'>
 			<HStack space="md" className="w-full justify-between">
-				<Text size="lg">{item}</Text>
+				<Text size="md" className='max-w-64'>{truncateString(item, 75)}</Text>
 				<Pressable onPress={onPressCopy}>
 					{({ pressed }) => <Icon className={pressed ? 'opacity-50' : ''} as={Copy} size="xl" />}
 				</Pressable>
