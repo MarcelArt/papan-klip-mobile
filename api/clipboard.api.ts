@@ -30,10 +30,16 @@ async function createPictureClipboard(baseUrl: string, imageUri: string): Promis
 	return res.status === 201
 }
 
+async function openLink(baseUrl: string, link: string): Promise<boolean> {
+	const res = await axios.post(`${baseUrl}/clipboard/open`, { text: link });
+	return res.status === 204;
+}
+
 const clipboardApi = {
 	getLatestClipboard,
 	ping,
 	createClipboard,
 	createPictureClipboard,
+	openLink,
 };
 export default clipboardApi;
