@@ -3,5 +3,10 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  }
+  },
+  "editor.tabSize": 2,
+  "editor.stickyTabStops": false,
+  "prettier.jsxSingleQuote": true,
+  "prettier.printWidth": 130,
+  "prettier.singleQuote": true
 }

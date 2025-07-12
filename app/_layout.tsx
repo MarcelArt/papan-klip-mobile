@@ -29,6 +29,8 @@ export default function RootLayout() {
 					<Stack>
 						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 						<Stack.Screen name="qr-scanner" options={{ headerShown: false }} />
+						<Stack.Screen name="camera" options={{ headerShown: false }} />
+						<Stack.Screen name="image-preview" options={{ headerShown: false }} />
 						<Stack.Screen name="+not-found" />
 					</Stack>
 				</QueryClientProvider>
