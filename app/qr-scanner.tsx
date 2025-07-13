@@ -7,6 +7,7 @@ import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
 import useBaseUrl from '@/hooks/useBaseUrl';
+import useDevice from '@/hooks/useDevice';
 import { useMutation } from '@tanstack/react-query';
 import { BarcodeScanningResult, CameraView, useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
@@ -19,13 +20,15 @@ export default function QrScannerScreen() {
 	const { setBaseUrl, setIsConnected, baseUrl } = useBaseUrl();
 	const router = useRouter();
 	const toast = useToast();
+	const { setDevice } = useDevice();
 
 	const { mutate } = useMutation({
 		mutationFn: () => clipboardApi.ping(baseUrl),
-		onSuccess: (ok) => {
-			if (ok) {
+		onSuccess: (data) => {
+			if (data) {
 				setBaseUrl(baseUrl);
 				setIsConnected(true);
+				setDevice(data);
 			}
 			setIsScanned(false);
 			showConnectStatusToast(true);

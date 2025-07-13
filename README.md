@@ -48,3 +48,8 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## Attribution
+- [Linux Icons](https://www.flaticon.com/free-icons/linux): Linux icons created by Dave Gandy - Flaticon
+- [Linux Icons](https://www.flaticon.com/free-icons/linux): Linux icons created by pocike - Flaticon
+- [Disconnect Icons](https://www.flaticon.com/free-icons/disconnect): Disconnect icons created by riajulislam - Flaticon

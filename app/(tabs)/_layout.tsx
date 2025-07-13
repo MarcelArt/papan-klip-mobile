@@ -8,7 +8,7 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { History } from 'lucide-react-native';
+import { MonitorSmartphone } from 'lucide-react-native';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -36,10 +36,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="history"
+        name="devices"
         options={{
-          title: 'History',
-          tabBarIcon: ({ color }) => <Icon as={History} size='xl' color={color} />,
+          title: 'Devices',
+          tabBarIcon: ({ color }) => <Icon as={MonitorSmartphone} size='xl' color={color} />,
         }}
       />
     </Tabs>

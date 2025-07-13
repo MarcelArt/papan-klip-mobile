@@ -1,3 +1,4 @@
+import { Device } from '@/models/device.model';
 import axios from 'axios';
 import * as Clipboard from 'expo-clipboard';
 import * as FileSystem from 'expo-file-system';
@@ -7,9 +8,9 @@ async function getLatestClipboard(): Promise<string> {
 	return content;
 }
 
-async function ping(baseUrl: string): Promise<boolean> {
+async function ping(baseUrl: string): Promise<Device> {
 	const res = await axios.get(`${baseUrl}`);
-	return res.status === 200;
+	return res.data;
 }
 
 async function createClipboard(baseUrl: string, text: string): Promise<boolean> {
