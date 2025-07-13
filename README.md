@@ -53,3 +53,4 @@ Join our community of developers creating universal apps.
 - [Linux Icons](https://www.flaticon.com/free-icons/linux): Linux icons created by Dave Gandy - Flaticon
 - [Linux Icons](https://www.flaticon.com/free-icons/linux): Linux icons created by pocike - Flaticon
 - [Disconnect Icons](https://www.flaticon.com/free-icons/disconnect): Disconnect icons created by riajulislam - Flaticon
+- [Windows Icons](https://www.flaticon.com/free-icons/windows): Windows icons created by Pixel perfect - Flaticon

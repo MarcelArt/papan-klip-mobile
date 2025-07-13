@@ -1,4 +1,5 @@
 import clipboardApi from '@/api/clipboard.api';
+import deviceApi from '@/api/device.api';
 import { Box } from '@/components/ui/box';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Center } from '@/components/ui/center';
@@ -8,11 +9,14 @@ import { Text } from '@/components/ui/text';
 import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
 import useBaseUrl from '@/hooks/useBaseUrl';
 import useDevice from '@/hooks/useDevice';
-import { useMutation } from '@tanstack/react-query';
+import { Device } from '@/models/device.model';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { BarcodeScanningResult, CameraView, useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
 import { MonitorCheck, MonitorOff } from 'lucide-react-native';
 import { useState } from 'react';
+
+
 
 export default function QrScannerScreen() {
 	const [isScanned, setIsScanned] = useState(false);
@@ -21,13 +25,23 @@ export default function QrScannerScreen() {
 	const router = useRouter();
 	const toast = useToast();
 	const { setDevice } = useDevice();
+	const queryClient = useQueryClient()
 
-	const { mutate } = useMutation({
+	const { mutate: addDevice } = useMutation({
+		mutationFn: (device: Device) => deviceApi.addDevice(device),
+		onSuccess: () => queryClient.invalidateQueries({ queryKey: ['devices'] }),
+	})
+
+	const { mutate: ping } = useMutation({
 		mutationFn: () => clipboardApi.ping(baseUrl),
 		onSuccess: (data) => {
 			if (data) {
 				setBaseUrl(baseUrl);
 				setIsConnected(true);
+				
+				data.url = baseUrl;
+				
+				addDevice(data);
 				setDevice(data);
 			}
 			setIsScanned(false);
@@ -94,7 +108,7 @@ export default function QrScannerScreen() {
 
 		setIsScanned(true);
 		setBaseUrl(result.data);
-		mutate();
+		ping();
 	};
 
 	return (
