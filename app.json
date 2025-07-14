@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "papan-klip-mobile",
+    "name": "Papan Klip",
     "slug": "papan-klip-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -36,7 +36,15 @@
         }
       ],
       "expo-background-task",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

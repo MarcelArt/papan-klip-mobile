@@ -10,7 +10,9 @@
     "web": "DARK_MODE=media expo start --web",
     "lint": "expo lint",
     "eas-android-dev": "eas build --platform android --profile development",
-    "eas-android-local": "eas build --platform android --profile development --local"
+    "eas-android-local": "eas build --platform android --profile development --local",
+    "eas-apk": "eas build --platform android --profile preview",
+    "eas-apk-local": "eas build --platform android --profile preview --local"
   },
   "dependencies": {
     "@expo/html-elements": "^0.4.2",
@@ -68,7 +70,8 @@
     "react-native-webview": "13.13.5",
     "tailwindcss": "^3.4.17",
     "zustand": "^5.0.6",
-    "expo-secure-store": "~14.2.3"
+    "expo-secure-store": "~14.2.3",
+    "expo-build-properties": "~0.14.8"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
