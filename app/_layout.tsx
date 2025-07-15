@@ -16,6 +16,7 @@ export default function RootLayout() {
 	const [loaded] = useFonts({
 		SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
 	});
+	// const { theme } = useTheme();
 
 	if (!loaded) {
 		// Async font loading only occurs in development.
@@ -23,7 +24,7 @@ export default function RootLayout() {
 	}
 
 	return (
-		<GluestackUIProvider mode="light">
+		<GluestackUIProvider mode='light'>
 			<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
 				<QueryClientProvider client={queryClient}>
 					<Stack>

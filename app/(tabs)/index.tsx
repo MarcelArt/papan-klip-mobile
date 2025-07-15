@@ -29,7 +29,7 @@ export default function HomeScreen() {
 	});
 
 	useEffect(() => {
-		if (status === 'success' && data && !clipboards.some(clipboard => clipboard.content === data)) {
+		if (status === 'success' && data && !clipboards.some((clipboard) => clipboard.content === data)) {
 			mutate(data);
 			addClipboard({
 				content: data,
@@ -42,8 +42,9 @@ export default function HomeScreen() {
 		<VStack className='mx-4 my-10 h-full'>
 			<Icon as={Scissors} size='xl' />
 			<Text className='text-4xl'>Welcome to Papan Klip</Text>
-			<HStack>
+			<HStack className='items-center justify-between'>
 				<ConnectionIndicator isConnected={isConnected} />
+				{/* <ThemeSlider /> */}
 			</HStack>
 			<Divider className='my-2' />
 			<FlashList estimatedItemSize={50} data={clipboards} renderItem={({ item }) => <ClipboardComponent item={item} />} />
