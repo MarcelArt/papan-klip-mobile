@@ -22,9 +22,15 @@ export default function ClipboardComponent({ item }: ClipboardComponentProps) {
 		mutationFn: () => clipboardApi.openLink(baseUrl, item.content),
 	});
 
-	const onPressCopy = () => {
-		console.log('item :>> ', item);
-	};
+	const { mutate: createClipboard } = useMutation({
+		mutationFn: () => clipboardApi.createClipboard(baseUrl, item.content),
+	});
+
+	const { mutate: createPictureClipboard } = useMutation({
+		mutationFn: () => clipboardApi.createPictureClipboard(baseUrl, item.content),
+	});
+
+	const onPressCopy = () => item.format === 'text' ? createClipboard() : createPictureClipboard();
 
 	return (
 		<Card variant='elevated' size='md' className='mb-2'>
